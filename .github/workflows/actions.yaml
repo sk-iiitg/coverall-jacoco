@@ -16,10 +16,10 @@ jobs:
     - name: 📦 Build with Maven
       run: mvn --batch-mode --update-snapshots test jacoco:report 
     - name: 🛠 Coverall Coverage Report Setup
-      run: sed -i.bak 's/__coverall__repo__token__/${{ github.token }}/g' pom.xml
+      run: sed -i.bak 's/__coverall__repo__token__/${{ secrets.COVERALL_REPO_TOKEN }}/g' pom.xml
     - name: 🚀 Coverall Coverage Report Submission
       run: mvn coveralls:report
     - name: 🧹 Cleanup Repository Token
       if: ${{ always() }}
-      run: if [ -f "pom.xml.bak" ]; then;  mv pom.xml.bak pom.xml; fi
+      run: if [ -f "pom.xml.bak" ]; then mv pom.xml.bak pom.xml; fi
 
