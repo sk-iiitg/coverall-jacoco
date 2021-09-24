@@ -16,7 +16,7 @@ public abstract class DefaultChallengeSolution<I extends ChallengeInput,V> imple
      * test case identifier. Inherited classes may want to override this
      * method if they require to exclude some test cases.
      * 
-     * return {@literal true} 
+     * @return {@literal true} 
      */
     @Override
     public boolean accept(String testCaseId) {
