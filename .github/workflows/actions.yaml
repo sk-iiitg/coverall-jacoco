@@ -1,10 +1,10 @@
 name: Build and Test Pipeline
 on: [push]
-jobs: 
+jobs:
   Main:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "🐙 Job triggered by ${{ github.event_name }} event."  
+    - run: echo "🐙 Job triggered by ${{ github.event_name }} event."
     - name: 🧺 Checkout Repository Code
       uses: actions/checkout@v2
     - name: 🛠 Set up JDK 11
@@ -14,12 +14,6 @@ jobs:
         distribution: 'adopt'
         cache: maven
     - name: 📦 Build with Maven
-      run: mvn --batch-mode --update-snapshots test jacoco:report 
-    - name: 🛠 Coverall Coverage Report Setup
-      run: sed -i.bak 's/__coverall__repo__token__/${{ secrets.COVERALL_REPO_TOKEN }}/g' pom.xml
+      run: mvn --batch-mode --update-snapshots test jacoco:report
     - name: 🚀 Coverall Coverage Report Submission
-      run: mvn coveralls:report
-    - name: 🧹 Cleanup Repository Token
-      if: ${{ always() }}
-      run: if [ -f "pom.xml.bak" ]; then mv pom.xml.bak pom.xml; fi
-
+      run: mvn coveralls:report --define repoToken=${{ secrets.COVERALL_REPO_TOKEN }}
