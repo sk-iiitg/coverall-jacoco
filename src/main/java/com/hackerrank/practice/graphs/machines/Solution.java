@@ -135,15 +135,21 @@ public class Solution extends DefaultChallengeSolution<Input,Integer> {
         /** 
          * 
          * This method returns the root node that matches
-         * the set that contains the given value. If the
-         * the value is not found it returns {@literal null}.
+         * the set that contains the given value. 
+         * 
+         * @param   n    a {@link Node} instance representing
+         *               a node in the disjoint set. It is
+         *               expected to not to be {@literal null}
+         * 
+         * @return  a {@link Node} representing the root of
+         *          the disjoint set associated to the given
+         *          node <i>n</i>.
          */
         protected Node findRoot(Node n) {
-            if (n != null) {
-                while(n.parent != null) {
-                    n = n.parent;
-                }
+            while(n.parent != null) {
+                n = n.parent;
             }
+            
             return n;
         }
     }
