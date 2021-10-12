@@ -44,7 +44,6 @@ public class Solution extends DefaultChallengeSolution<Input,String> {
         if (n < 5) {
             return "YES";
         }
-        int howManyOnes = 0;
         Map<Character,Integer> frequencies = new HashMap<>();
         for(int i=0; i<n; i++) {
             char c = s.charAt(i);

@@ -17,12 +17,12 @@ import com.hackerrank.core.DefaultChallengeResult;
 public class Solution extends DefaultChallengeSolution<Input, Integer> {
 
     public static class Node {
-        public long color;
-        public int id;
-        public int depth;
-        public List<Node> intermediate;
-        public List<Node> terminals;
-        public boolean visited = false;
+        protected long color;
+        protected int id;
+        protected int depth;
+        protected List<Node> intermediate;
+        protected List<Node> terminals;
+        protected boolean visited = false;
         
         public Node(int id, long color) {
             this.id = id;
@@ -54,6 +54,7 @@ public class Solution extends DefaultChallengeSolution<Input, Integer> {
                     sb.append(", ");
                 }
                 sb.append(n.id);
+                i++;
             }
             sb.append("], i: [");
             i=0;
@@ -62,6 +63,7 @@ public class Solution extends DefaultChallengeSolution<Input, Integer> {
                     sb.append(", ");
                 }
                 sb.append(n.id);
+                i++;
             }
             sb.append("], d: ")
               .append(this.depth)
@@ -133,9 +135,6 @@ public class Solution extends DefaultChallengeSolution<Input, Integer> {
         // to stop the search if we find a matching value.
         
         int minFound = Integer.MAX_VALUE;
-        long wanted = val;
-        
-        boolean found = false;
         while (!heads.isEmpty() && minFound > 2) {
             // we pull another head from
             // the list of colors.
@@ -175,7 +174,7 @@ public class Solution extends DefaultChallengeSolution<Input, Integer> {
                             
                             // if this is not where we started or something
                             // we checked in a previous cycle.
-                            if (ngt.visited == false && nextDepth < minFound) {
+                            if (!ngt.visited && nextDepth < minFound) {
                                 
                                 // System.out.println("<< New Min: " + nextDepth + ">>");
                                 minFound = nextDepth;
