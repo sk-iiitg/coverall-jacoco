@@ -15,12 +15,27 @@ public class DefaultChallengeResultTest {
 
     public class Dummy {
 
-        protected boolean called;
+        protected boolean equalsCalled;
+        protected boolean toStringCalled;
+        protected boolean hashCodeCalled;
 
         
+        @Override
         public boolean equals(Object other) {
-            called = true;
+            this.equalsCalled = true;
             return super.equals(other);
+        }
+
+        @Override
+        public int hashCode() {
+            this.hashCodeCalled = true;
+            return super.hashCode();
+        }
+
+        @Override
+        public String toString() {
+            this.toStringCalled = true;
+            return super.toString();
         }
     }
 
@@ -54,7 +69,7 @@ public class DefaultChallengeResultTest {
     public void testEqualsWithNull() {
 
         DefaultChallengeResult<Object> subject = new DefaultChallengeResult<>((int) 45);
-        Assert.assertFalse("Equality test should fail for null arguments.", subject.equals(null));
+        Assert.assertNotEquals("Equality test should fail for null arguments.", subject, null);
     }
 
 
@@ -68,7 +83,7 @@ public class DefaultChallengeResultTest {
 
         subject.equals(new DefaultChallengeResult<Dummy>(other));
 
-        Assert.assertTrue("Equality test should invole equals of wrapped instance.", dummy.called);
+        Assert.assertTrue("Equality test should invole equals of wrapped instance.", dummy.equalsCalled);
     }
     
 
@@ -76,7 +91,7 @@ public class DefaultChallengeResultTest {
     public void testEqualsWithDifferentType() {
 
         DefaultChallengeResult<String> subject = new DefaultChallengeResult<String>("This is type test");
-        Assert.assertFalse("Equality test should fail for an argument of different type.", subject.equals(new Object()));
+        Assert.assertNotEquals("Equality test should fail for an argument of different type.", subject, new Object());
     }
 
     @Test
@@ -88,7 +103,7 @@ public class DefaultChallengeResultTest {
         DefaultChallengeResult<String> subject = new DefaultChallengeResult<>(s1);
         DefaultChallengeResult<String> other = new DefaultChallengeResult<>(s2);
 
-        Assert.assertTrue("Equality test should succeed for wrapped nulls.", subject.equals(other));
+        Assert.assertEquals("Equality test should succeed for wrapped nulls.", subject, other);
     }
 
 
@@ -101,7 +116,7 @@ public class DefaultChallengeResultTest {
         DefaultChallengeResult<Long> subject = new DefaultChallengeResult<>(l1);
         DefaultChallengeResult<Long> other = new DefaultChallengeResult<>(l2);
 
-        Assert.assertTrue("Equality test should succeed for the same value.", subject.equals(other));
+        Assert.assertEquals("Equality test should succeed for the same value.", subject, other);
 
     }
 
@@ -115,7 +130,37 @@ public class DefaultChallengeResultTest {
         DefaultChallengeResult<String> subject = new DefaultChallengeResult<>(s1);
         DefaultChallengeResult<String> other = new DefaultChallengeResult<>(s2);
 
-        Assert.assertFalse("Equality test should fail for different values.", subject.equals(other));
+        Assert.assertNotEquals("Equality test should fail for different values.", subject, other);
+    }
+
+    @Test
+    public void testToString() {
+
+        String template = "[Result: %s]";
+        Dummy value = new Dummy();
+        DefaultChallengeResult<Dummy> candidate = new DefaultChallengeResult<>(value);
+
+        String expected = String.format(template, value);
+
+        Assert.assertEquals("toString() should match the expected format.", 
+                            expected, candidate.toString());
+
+        Assert.assertTrue("toString() should call Object.toString() of the wrapped value.", 
+                            value.toStringCalled);
+    }
+
+    @Test
+    public void testHashCode() {
+
+        Dummy value = new Dummy();
+        DefaultChallengeResult<Dummy> candidate = new DefaultChallengeResult<>(value);
+
+
+        Assert.assertEquals("hashCode() should match the expected format.", 
+                            value.hashCode(), candidate.hashCode());
+
+        Assert.assertTrue("hashCode() should call Object.hashCode() of the wrapped value.", 
+                            value.hashCodeCalled);
     }
 
 }

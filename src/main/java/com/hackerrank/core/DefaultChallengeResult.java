@@ -48,4 +48,31 @@ public class DefaultChallengeResult<T> implements ChallengeResult {
         }
         return false;
     }
+
+    /**
+     * Returns the string representation of the entity. The string is
+     * expressed in the format: 
+     * <pre>
+     * [Result: value.toString()]
+     * </pre>
+     * 
+     * @return  a {@link String} containg the string representation
+     *          of the wrapped value.
+     */
+    @Override
+    public String toString() {
+        T v = this.getValue();
+        return String.format("[Result: %s]", v);
+    }
+
+    /**
+     * Returns the hashcode of the current result instance.
+     * 
+     * @return  the value of {@link Object#hashCode()} when
+     *          applied to the wrapped value.
+     */
+    @Override
+    public int hashCode() {
+        return this.getValue().hashCode();
+    }
 }
