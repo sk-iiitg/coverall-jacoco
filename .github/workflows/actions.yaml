@@ -1,5 +1,5 @@
 name: Build and Test Pipeline
-on: [push]
+on: ["push", "pull_request"]
 jobs:
   Main:
     runs-on: ubuntu-latest
