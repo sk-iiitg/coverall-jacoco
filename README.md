@@ -1,5 +1,5 @@
 # Solution to Coding Challenges in Hacker Rank
-
+hiii
 [![Coverage Status](https://coveralls.io/repos/github/hyp0th3rmi4/hacker-rank-coding-practice/badge.svg?branch=master)](https://coveralls.io/github/hyp0th3rmi4/hacker-rank-coding-practice?branch=master)
 
 This repository contains the solutions to some of the coding challenges published in Hacker Rank. I do coding challenges in my spare time and I keep my solutions all in one place.
