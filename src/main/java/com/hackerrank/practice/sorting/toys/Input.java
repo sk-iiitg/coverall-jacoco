@@ -13,6 +13,8 @@ public class Input implements ChallengeInput {
     public Input(List<Integer> prices, int budget) {
         this.budget = budget;
         this.prices = prices;
+        int i=0;
+        i=i+1;
     }
     
     public List<Integer> getPrices() {
@@ -22,4 +24,8 @@ public class Input implements ChallengeInput {
     public int getBudget() {
         return this.budget;
     }
+    public int getsushil() {
+        return 3;
+    }
+    
 }
